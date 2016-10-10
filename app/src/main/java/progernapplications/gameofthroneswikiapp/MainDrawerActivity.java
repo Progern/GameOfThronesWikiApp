@@ -1,5 +1,6 @@
 package progernapplications.gameofthroneswikiapp;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -75,6 +76,7 @@ public class MainDrawerActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         switch(item.getItemId())
         {
@@ -85,14 +87,15 @@ public class MainDrawerActivity extends AppCompatActivity
                 // TODO Books fragment
                 break;
             case R.id.nav_characters:
-                // TODO Characters fragment
+               getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new CharactersFragment()).commit();
+
+
                 break;
             case R.id.nav_info:
                 // TODO Info toast or smthing
                 break;
 
         }
-
 
         drawer.closeDrawer(GravityCompat.START);
         return true;

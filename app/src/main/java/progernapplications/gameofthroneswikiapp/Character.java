@@ -16,10 +16,10 @@ public class Character
     // Secondary information
 
     private String povBooks, tvSeries;
-    private String playedBy;
+
 
     public Character(String name, String title, String culture, String born,
-    String died, String father, String mother, String spouse, String povBooks,  String tvSeries, String playedBy)
+    String died, String father, String mother, String spouse, String povBooks,  String tvSeries)
     {
         this.name = name;
         this.title = title;
@@ -31,8 +31,6 @@ public class Character
         this.spouse = spouse;
         this.povBooks = povBooks;
         this.tvSeries = tvSeries;
-        this.playedBy = playedBy;
-
 
     }
 
@@ -85,22 +83,6 @@ public class Character
     {
         return tvSeries;
     }
-
-    public String getActor()
-    {
-        return playedBy;
-    }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

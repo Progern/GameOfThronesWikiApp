@@ -48,7 +48,7 @@ public class CharactersRecViewAdapter extends RecyclerView.Adapter<CharactersRec
             holder.mother.setText(currentCharacter.getMother());
             holder.spouse.setText(currentCharacter.getSpouse());
 
-            holder.povBooks.setText(currentCharacter.getListOfBooks());
+            //holder.povBooks.setText(currentCharacter.getListOfBooks());
             holder.tvSeries.setText(currentCharacter.getTvSeries());
     }
 

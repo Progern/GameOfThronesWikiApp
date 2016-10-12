@@ -15,11 +15,12 @@ public class Character
 
     // Secondary information
 
-    private String povBooks, tvSeries;
+    private String tvSeries;
+    //private String povBooks;
 
 
     public Character(String name, String title, String culture, String born,
-    String died, String father, String mother, String spouse, String povBooks,  String tvSeries)
+    String died, String father, String mother, String spouse,  String tvSeries) // ADD POVBOOKS IN CONSTRUCTOR LATER
     {
         this.name = name;
         this.title = title;
@@ -29,7 +30,7 @@ public class Character
         this.father = father;
         this.mother = mother;
         this.spouse = spouse;
-        this.povBooks = povBooks;
+        //this.povBooks = povBooks;
         this.tvSeries = tvSeries;
 
     }
@@ -74,10 +75,7 @@ public class Character
         return spouse;
     }
 
-    public String getListOfBooks()
-    {
-        return povBooks;
-    }
+
 
     public String getTvSeries()
     {

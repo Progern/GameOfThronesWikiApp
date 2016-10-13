@@ -9,4 +9,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="culture">Culture:</string>
+    <string name="born">Born:</string>
+    <string name="died">Died:</string>
+    <string name="father">Father:</string>
+    <string name="mother">Mother:</string>
+    <string name="spouse">Spouse:</string>
+    <string name="books">Books:</string>
+    <string name="tv_series">TV Series:</string>
 </resources>

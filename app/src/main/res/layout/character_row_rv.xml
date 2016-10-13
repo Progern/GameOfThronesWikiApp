@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="300dp"
+    android:id="@+id/container">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,7 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Culture:"
+            android:text="@string/culture"
             android:id="@+id/static_culture_text"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
@@ -66,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Born:"
+            android:text="@string/born"
             android:id="@+id/static_born_text"
             android:layout_below="@+id/static_culture_text"
             android:layout_alignParentStart="true"
@@ -89,32 +90,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" - "
-            android:id="@+id/static_line"
-            android:layout_alignBottom="@+id/born_rv"
-            android:layout_toEndOf="@+id/born_rv"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Died:"
+            android:text="@string/died"
             android:id="@+id/static_died_text"
-            android:layout_alignTop="@+id/static_line"
-            android:layout_toEndOf="@+id/static_line"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:textSize="15sp"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/primaryText"
+            android:layout_below="@+id/static_born_text"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="death_date_here"
             android:id="@+id/died_rv"
+            android:textColor="@color/secondaryText"
             android:layout_alignBottom="@+id/static_died_text"
             android:layout_toEndOf="@+id/static_died_text"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/secondaryText" />
+            android:layout_marginLeft="5dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -127,7 +120,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Father:"
+            android:text="@string/father"
             android:id="@+id/static_father_text"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
@@ -150,7 +143,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mother:"
+            android:text="@string/mother"
             android:id="@+id/static_mother_text"
             android:layout_below="@+id/static_father_text"
             android:layout_alignParentStart="true"
@@ -173,7 +166,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spouce:"
+            android:text="@string/spouse"
             android:id="@+id/static_spouce_text"
             android:textSize="15sp"
             android:textColor="@color/primaryText"
@@ -195,14 +188,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Books:"
+            android:text="@string/books"
             android:id="@+id/static_books_text"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
@@ -225,7 +218,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TV Series:"
+            android:text="@string/tv_series"
             android:id="@+id/static_tv_series_text"
             android:layout_below="@+id/static_books_text"
             android:layout_alignStart="@+id/static_books_text"

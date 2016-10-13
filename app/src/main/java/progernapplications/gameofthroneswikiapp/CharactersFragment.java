@@ -15,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -42,12 +45,18 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private CharactersRecViewAdapter mAdapter;
-    private Button searchButton;
+
     private EditText searchField;
     private static String searchQuery = "http://www.anapioficeandfire.com/api/characters?name=";
-    private static AsyncHttpClient mClient;
-    StringBuffer titlesBuffer, tvseriesBuffer;
+    private static AsyncHttpClient mClient, mInnerCallClient;
     private Snackbar mSnackbar;
+    private ImageView targSign;
+
+    //
+    StringBuffer tvseriesBuffer;
+    String title;
+    String deathDate;
+    String father, mother, spouse;
 
 
     @Nullable
@@ -57,88 +66,119 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
         setupUI(myView);
         charactersList = new ArrayList<>();
         mClient = new AsyncHttpClient();
+        mInnerCallClient = new AsyncHttpClient();
 
         mRecyclerView = (RecyclerView) myView.findViewById(R.id.charsRecView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        searchButton = (Button) myView.findViewById(R.id.charSearchButton);
+
         searchField = (EditText) myView.findViewById(R.id.charSearchField);
 
         mAdapter = new CharactersRecViewAdapter(getActivity().getApplicationContext(), charactersList);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        searchButton.setOnClickListener(this);
+        targSign = (ImageView)myView.findViewById(R.id.buttonImage);
+        targSign.setOnClickListener(this);
+
+
         mSnackbar = Snackbar.make(myView, "Fill search query first.", Snackbar.LENGTH_LONG);
 
         return myView;
     }
 
-    public void addNewCharacter(Character character) {
-        charactersList.add(character);
-        mAdapter.notifyDataSetChanged();
-    }
+
 
     @Override
     public void onClick(View view) {
 
-        titlesBuffer = new StringBuffer();
+
         tvseriesBuffer = new StringBuffer();
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
+        targSign.startAnimation(animation);
 
 
         switch (view.getId()) {
-            case R.id.charSearchButton:
-
-                if (!(searchField.getText().toString().equals(""))) {
-
-                    mClient.get(searchQuery + searchField.getText().toString().replaceAll(" ", "%20"), new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                            try {
-                                // Main JSON-Object with Character info
-                                JSONObject currentCharacter = response.getJSONObject(0);
-
-                                // Check have we got something or not
-                                if (currentCharacter == null) mSnackbar.show();
-
-                                else {
-                                    // JSON-Array with all titles, we need just few..
-                                    JSONArray titles = currentCharacter.getJSONArray("titles");
-                                    for (int i = 0; i < titles.length(); i++) {
-                                        titlesBuffer.append(titles.getString(i) + " ");
-                                    }
-
-                                    JSONArray tvSeriesArr = currentCharacter.getJSONArray("tvSeries");
-
-                                    for (int i = 0; i < tvSeriesArr.length(); i++) {
-                                        tvseriesBuffer.append(tvSeriesArr.getString(i) + ", ");
-                                    }
-
-
-                                    // ------------------------------------------------------------------------
-                                    charactersList.add(new Character(currentCharacter.getString("name"), titlesBuffer.toString()
-                                            , currentCharacter.getString("culture"), currentCharacter.getString("born"), currentCharacter.getString("died")
-                                            , currentCharacter.getString("father"), currentCharacter.getString("mother"), currentCharacter.getString("spouse"), tvseriesBuffer.toString()));
-                                    mAdapter.notifyDataSetChanged();
-                                    // ------------------------------------------------------------------------
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-
-                    });
-                } else mSnackbar.show();
+            case R.id.buttonImage:
+            getCharacter();
+                break;
 
 
         }
     }
 
+    private void getCharacter()
+    {
+        if (!(searchField.getText().toString().equals(""))) {
+
+            mClient.get(searchQuery + searchField.getText().toString().replaceAll(" ", "%20"), new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                    try {
+                        // Main JSON-Object with Character info
+                        JSONObject currentCharacter = response.getJSONObject(0);
+
+                        title = currentCharacter.getJSONArray("titles").getString(0);
+
+                        // All seasons, where character was
+                        JSONArray tvSeriesArr = currentCharacter.getJSONArray("tvSeries");
+                        for (int i = 0; i < tvSeriesArr.length(); i++) {
+                            tvseriesBuffer.append(tvSeriesArr.getString(i) + ", ");
+                        }
+
+                        // Check if character has died. Made to avoid empty strings.
+                        if(currentCharacter.getString("died").equals("")) deathDate = "Not yet.";
+                        else deathDate = currentCharacter.getString("died");
+
+                        // To check if we have any information about character's father, mother and spouce. For better UI
+                        if(currentCharacter.getString("father").equals("")) father = "No information.";
+                        else // TODO Handle Inner Call to API
+
+                            if(currentCharacter.getString("mother").equals("")) mother = "No information.";
+                            else // TODO Handle Inner Call to API
+
+                                if(currentCharacter.getString("spouse").equals("")) spouse = "No information.";
+                                else // TODO Handle Inner Call to API
+
+                                    // ------------------------------------------------------------------------
+                                    charactersList.add(new Character(currentCharacter.getString("name"), title
+                                            , currentCharacter.getString("culture"), currentCharacter.getString("born"), deathDate
+                                            , father, mother, spouse, tvseriesBuffer.toString()));
+                                    mAdapter.notifyDataSetChanged();
+                                    // ------------------------------------------------------------------------
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            });
+        } else mSnackbar.show();
+
+    }
+
+    private void getInfoInnerCall(String urlForCall)
+    {
+        mInnerCallClient.get(urlForCall, new JsonHttpResponseHandler()
+        {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                try {
+                    JSONObject secondaryCharacter = response.getJSONObject(0);
+                    father = secondaryCharacter.getString("name");
+                }catch (JSONException ex)
+                {
+                    // TODO something
+                }
+            }
+        });
+    }
+
     public void setupUI(View view) {
 
         // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText) || !(view instanceof Button) || (view instanceof RecyclerView)) {
+        if (!(view instanceof EditText) || !(view instanceof Button) || !(view instanceof RecyclerView)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {

@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="progernapplications.gameofthroneswikiapp.BooksFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchFieldBooks"
+            android:hint="Type the name of book here"
+            android:drawableLeft="@drawable/search_little"
+            android:drawablePadding="5dp"
+            android:background="@drawable/rectangle_search"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/buttonImageBooks"
+            android:src="@drawable/stark_sign"
+            android:layout_below="@+id/searchFieldBooks"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/booksRecView"
+            android:layout_below="@+id/buttonImageBooks"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</FrameLayout>

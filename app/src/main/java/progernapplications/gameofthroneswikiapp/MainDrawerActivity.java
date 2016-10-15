@@ -84,7 +84,7 @@ public class MainDrawerActivity extends AppCompatActivity
                // TODO Houses fragment
                 break;
             case R.id.nav_books:
-                // TODO Books fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new BooksFragment()).commit();
                 break;
             case R.id.nav_characters:
                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new CharactersFragment()).commit();

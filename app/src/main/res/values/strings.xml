@@ -17,4 +17,6 @@
     <string name="spouse">Spouse:</string>
     <string name="books">Books:</string>
     <string name="tv_series">TV Series:</string>
+    <string name="empty_search_query">Search query is empty</string>
+    <string name="error_occured">Error occured. Try again.</string>
 </resources>

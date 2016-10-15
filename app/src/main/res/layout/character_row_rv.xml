@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:id="@+id/container">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="85dp"
         android:background="@color/lightPrimary"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
@@ -18,28 +18,31 @@
             android:text="Name"
             android:id="@+id/name_rv"
             android:textSize="20sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="title"
             android:id="@+id/title_rv"
-            android:layout_alignTop="@+id/name_rv"
-            android:layout_toEndOf="@+id/name_rv"
             android:textSize="20sp"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_below="@+id/name_rv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:background="@drawable/container_stroke">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,20 +52,22 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:textColor="@color/primaryText"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-condensed"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="culture_text_here"
+            android:text="CULTURE"
             android:id="@+id/culture_rv"
             android:layout_alignBottom="@+id/static_culture_text"
             android:layout_toEndOf="@+id/static_culture_text"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/secondaryText" />
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-thin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,18 +79,20 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:textColor="@color/primaryText"
-            android:textSize="15sp" />
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-condensed"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="born_date_here"
+            android:text="BORN"
             android:id="@+id/born_rv"
             android:layout_alignBottom="@+id/static_born_text"
             android:layout_toEndOf="@+id/static_born_text"
             android:layout_marginLeft="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/secondaryText" />
+            android:textSize="20sp"
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-thin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -93,29 +100,33 @@
             android:text="@string/died"
             android:id="@+id/static_died_text"
             android:layout_marginLeft="10dp"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textColor="@color/primaryText"
             android:layout_below="@+id/static_born_text"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-condensed"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="death_date_here"
+            android:text="DIED"
             android:id="@+id/died_rv"
-            android:textColor="@color/secondaryText"
+            android:textColor="@color/primaryText"
             android:layout_alignBottom="@+id/static_died_text"
             android:layout_toEndOf="@+id/static_died_text"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/lightPrimary">
+        android:background="@drawable/container_stroke"
+        android:fontFamily="sans-serif-condensed">
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,21 +135,23 @@
             android:id="@+id/static_father_text"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-condensed"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="father_text_here"
+            android:text="FATHER_NAME"
             android:id="@+id/father_rv"
             android:layout_alignBottom="@+id/static_father_text"
             android:layout_toEndOf="@+id/static_father_text"
             android:layout_marginLeft="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/secondaryText" />
+            android:textSize="20sp"
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-thin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,91 +162,75 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/primaryText" />
+            android:textSize="20sp"
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-condensed"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="mother_text_here"
+            android:text="MOTHER_NAME"
             android:id="@+id/mother_rv"
             android:layout_alignBottom="@+id/static_mother_text"
             android:layout_toEndOf="@+id/static_mother_text"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/secondaryText" />
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-thin"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/spouse"
             android:id="@+id/static_spouce_text"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textColor="@color/primaryText"
             android:layout_below="@+id/static_mother_text"
             android:layout_alignStart="@+id/static_mother_text"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-condensed"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="spouce_text_here"
+            android:text="SPOUSE_NAME"
             android:id="@+id/spouce_rv"
             android:layout_alignBottom="@+id/static_spouce_text"
             android:layout_toEndOf="@+id/static_spouce_text"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/secondaryText" />
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-thin"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/books"
-            android:id="@+id/static_books_text"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/primaryText"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="books_here"
-            android:id="@+id/books_rv"
-            android:textSize="15sp"
-            android:layout_marginLeft="5dp"
-            android:layout_alignTop="@+id/static_books_text"
-            android:layout_toEndOf="@+id/static_books_text"
-            android:textColor="@color/primaryText" />
+        android:layout_marginRight="10dp"
+        android:background="@drawable/container_stroke">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_series"
             android:id="@+id/static_tv_series_text"
-            android:layout_below="@+id/static_books_text"
-            android:layout_alignStart="@+id/static_books_text"
-            android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/primaryText" />
+            android:layout_marginTop="15dp"
+            android:textSize="20sp"
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tv_series_here"
+            android:text="TV_SERIES_LIST"
             android:id="@+id/tv_series_rv"
             android:layout_alignTop="@+id/static_tv_series_text"
             android:layout_toEndOf="@+id/static_tv_series_text"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/primaryText"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="20sp" />
     </RelativeLayout>
 </LinearLayout>

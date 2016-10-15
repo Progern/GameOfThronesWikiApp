@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Олег-PC on 09.10.2016.
- */
+
 public class CharactersRecViewAdapter extends RecyclerView.Adapter<CharactersRecViewAdapter.charactersViewHolder>
 {
 
@@ -109,7 +107,7 @@ public class CharactersRecViewAdapter extends RecyclerView.Adapter<CharactersRec
             mother = (TextView)itemView.findViewById(R.id.mother_rv);
             spouse = (TextView)itemView.findViewById(R.id.spouce_rv);
 
-            povBooks = (TextView)itemView.findViewById(R.id.books_rv);
+
             tvSeries = (TextView)itemView.findViewById(R.id.tv_series_rv);
 
             container = (LinearLayout)itemView.findViewById(R.id.container);

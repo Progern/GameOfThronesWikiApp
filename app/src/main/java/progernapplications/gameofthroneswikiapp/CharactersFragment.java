@@ -48,7 +48,7 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
 
     private EditText searchField;
     private static String searchQuery = "http://www.anapioficeandfire.com/api/characters?name=";
-    private static AsyncHttpClient mClient, mInnerCallClient;
+    private static AsyncHttpClient mClient;
     private Snackbar mSnackbar;
     private ImageView targSign;
 
@@ -66,7 +66,7 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
         setupUI(myView);
         charactersList = new ArrayList<>();
         mClient = new AsyncHttpClient();
-        mInnerCallClient = new AsyncHttpClient();
+
 
         mRecyclerView = (RecyclerView) myView.findViewById(R.id.charsRecView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -81,7 +81,7 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
         targSign.setOnClickListener(this);
 
 
-        mSnackbar = Snackbar.make(myView, "Fill search query first.", Snackbar.LENGTH_LONG);
+        mSnackbar = Snackbar.make(myView, R.string.empty_search_query , Snackbar.LENGTH_LONG);
 
         return myView;
     }
@@ -91,89 +91,65 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
 
-
-        tvseriesBuffer = new StringBuffer();
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
-        targSign.startAnimation(animation);
-
-
         switch (view.getId()) {
             case R.id.buttonImage:
-            getCharacter();
+                Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
+                targSign.startAnimation(animation);
+            getCharacter(searchQuery + searchField.getText().toString());
                 break;
-
 
         }
     }
 
-    private void getCharacter()
-    {
-        if (!(searchField.getText().toString().equals(""))) {
 
-            mClient.get(searchQuery + searchField.getText().toString().replaceAll(" ", "%20"), new JsonHttpResponseHandler() {
+    public void getCharacter(String urlForParse)
+    {
+
+        tvseriesBuffer = new StringBuffer();
+        if(!(urlForParse.isEmpty())) {
+            mClient.get(urlForParse, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                     try {
-                        // Main JSON-Object with Character info
-                        JSONObject currentCharacter = response.getJSONObject(0);
+                        JSONObject character = response.getJSONObject(0);
+                        title = character.getJSONArray("titles").getString(0);
 
-                        title = currentCharacter.getJSONArray("titles").getString(0);
+                        // Check if character has died. If not - then fill the Text field with appropriate text
+                        if (character.getString("died").isEmpty()) deathDate = "Not yet";
+                        else deathDate = character.getString("died");
 
-                        // All seasons, where character was
-                        JSONArray tvSeriesArr = currentCharacter.getJSONArray("tvSeries");
-                        for (int i = 0; i < tvSeriesArr.length(); i++) {
-                            tvseriesBuffer.append(tvSeriesArr.getString(i) + ", ");
-                        }
+                        // Check if we have any information about character's mother, father and spouse in our responce
+                        // If we have none, fill the Text fields with appropriate texts
 
-                        // Check if character has died. Made to avoid empty strings.
-                        if(currentCharacter.getString("died").equals("")) deathDate = "Not yet.";
-                        else deathDate = currentCharacter.getString("died");
+                        if (character.getString("father").isEmpty()) father = "No information";
+                        else father = character.getString("father");
 
-                        // To check if we have any information about character's father, mother and spouce. For better UI
-                        if(currentCharacter.getString("father").equals("")) father = "No information.";
-                        else // TODO Handle Inner Call to API
+                        if (character.getString("mother").isEmpty()) mother = "No information";
+                        else mother = character.getString("mother");
 
-                            if(currentCharacter.getString("mother").equals("")) mother = "No information.";
-                            else // TODO Handle Inner Call to API
+                        if (character.getString("spouse").isEmpty()) spouse = "No information";
+                        else spouse = character.getString("spouse");
 
-                                if(currentCharacter.getString("spouse").equals("")) spouse = "No information.";
-                                else // TODO Handle Inner Call to API
-
-                                    // ------------------------------------------------------------------------
-                                    charactersList.add(new Character(currentCharacter.getString("name"), title
-                                            , currentCharacter.getString("culture"), currentCharacter.getString("born"), deathDate
-                                            , father, mother, spouse, tvseriesBuffer.toString()));
-                                    mAdapter.notifyDataSetChanged();
-                                    // ------------------------------------------------------------------------
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        charactersList.add(new Character(character.getString("name"), title, character.getString("culture")
+                                , character.getString("born"), deathDate, father, mother, spouse, tvseriesBuffer.toString()));
+                        mAdapter.notifyDataSetChanged();
+                    } catch (JSONException ex)
+                    {
+                        // TODO something :D
                     }
                 }
 
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
-            });
-        } else mSnackbar.show();
-
-    }
-
-    private void getInfoInnerCall(String urlForCall)
-    {
-        mInnerCallClient.get(urlForCall, new JsonHttpResponseHandler()
-        {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                try {
-                    JSONObject secondaryCharacter = response.getJSONObject(0);
-                    father = secondaryCharacter.getString("name");
-                }catch (JSONException ex)
-                {
-                    // TODO something
                 }
-            }
-        });
+            });
+        }
     }
+
+
+
+
 
     public void setupUI(View view) {
 

@@ -1,16 +1,12 @@
 package progernapplications.gameofthroneswikiapp;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,33 +26,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
 
 public class CharactersFragment extends Fragment implements View.OnClickListener {
-    private ArrayList<Character> charactersList;
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLinearLayoutManager;
-    private CharactersRecViewAdapter mAdapter;
-
-    private EditText searchField;
     private static String searchQuery = "http://www.anapioficeandfire.com/api/characters?name=";
     private static AsyncHttpClient mClient;
-    private Snackbar mSnackbar;
-    private ImageView targSign;
-
     //
     StringBuffer tvseriesBuffer;
     String title;
     String deathDate;
     String father, mother, spouse;
+    private ArrayList<Character> charactersList;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    private CharactersRecViewAdapter mAdapter;
+    private EditText searchField;
+    private Snackbar mSnackbar;
+    private ImageView targSign;
+
 
 
     @Nullable
@@ -77,16 +67,14 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        targSign = (ImageView)myView.findViewById(R.id.buttonImage);
+        targSign = (ImageView) myView.findViewById(R.id.buttonImage);
         targSign.setOnClickListener(this);
 
 
-        mSnackbar = Snackbar.make(myView, R.string.empty_search_query , Snackbar.LENGTH_LONG);
+        mSnackbar = Snackbar.make(myView, R.string.empty_search_query, Snackbar.LENGTH_LONG);
 
         return myView;
     }
-
-
 
     @Override
     public void onClick(View view) {
@@ -95,61 +83,67 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
             case R.id.buttonImage:
                 Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
                 targSign.startAnimation(animation);
-            getCharacter(searchQuery + searchField.getText().toString());
+                if (!(searchField.getText().toString().isEmpty()))
+                    getCharacter(searchQuery + searchField.getText().toString());
+                else mSnackbar.show();
                 break;
 
         }
     }
 
-
-    public void getCharacter(String urlForParse)
-    {
+    public void getCharacter(String urlForParse) {
 
         tvseriesBuffer = new StringBuffer();
-        if(!(urlForParse.isEmpty())) {
+        if (!(urlForParse.isEmpty())) {
             mClient.get(urlForParse, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                     try {
                         JSONObject character = response.getJSONObject(0);
-                        title = character.getJSONArray("titles").getString(0);
+                        if (listReduplication(charactersList, character.getString("name"))) {
+                            title = character.getJSONArray("titles").getString(0);
 
-                        // Check if character has died. If not - then fill the Text field with appropriate text
-                        if (character.getString("died").isEmpty()) deathDate = "Not yet";
-                        else deathDate = character.getString("died");
+                            // Check if character has died. If not - then fill the Text field with appropriate text
+                            deathDate = checkInfoPresence(character.getString("died"));
 
-                        // Check if we have any information about character's mother, father and spouse in our responce
-                        // If we have none, fill the Text fields with appropriate texts
+                            // Check if we have any information about character's mother, father and spouse in our responce
+                            // If we have none, fill the Text fields with appropriate texts
+                            father = checkInfoPresence(character.getString("father"));
+                            mother = checkInfoPresence(character.getString("mother"));
+                            spouse = checkInfoPresence(character.getString("spouse"));
 
-                        if (character.getString("father").isEmpty()) father = "No information";
-                        else father = character.getString("father");
-
-                        if (character.getString("mother").isEmpty()) mother = "No information";
-                        else mother = character.getString("mother");
-
-                        if (character.getString("spouse").isEmpty()) spouse = "No information";
-                        else spouse = character.getString("spouse");
-
-                        charactersList.add(new Character(character.getString("name"), title, character.getString("culture")
-                                , character.getString("born"), deathDate, father, mother, spouse, tvseriesBuffer.toString()));
-                        mAdapter.notifyDataSetChanged();
-                    } catch (JSONException ex)
-                    {
+                            charactersList.add(new Character(character.getString("name"), title, character.getString("culture")
+                                    , character.getString("born"), deathDate, father, mother, spouse, tvseriesBuffer.toString()));
+                            mAdapter.notifyDataSetChanged();
+                        } else Toast.makeText(getActivity(), "Already added.", Toast.LENGTH_SHORT).show();
+                    } catch (JSONException ex) {
                         // TODO something :D
                     }
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+                    Toast.makeText(getActivity(), "Error occurred. Try again please", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
+    // To avoid blank spaces in UI
+    public String checkInfoPresence(String s) {
+        if (s.isEmpty()) return "No information";
+        else return s;
+    }
 
-
-
+    // To check if we already added sought character to our list
+    public boolean listReduplication(ArrayList<Character> charactersList, String name)
+    {
+        for(int i = 0; i < charactersList.size(); i++)
+        {
+            if(charactersList.get(i).getName().equals(name)) return false;
+        }
+        return true;
+    }
 
     public void setupUI(View view) {
 
@@ -167,6 +161,7 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
         }
 
     }
+
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
@@ -176,5 +171,3 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
     }
 
 }
-
-

@@ -1,12 +1,13 @@
 package progernapplications.gameofthroneswikiapp;
 
-
-import java.util.ArrayList;
-
 public class Book
 {
 
-    private String name, numberOfPages, publisher, country, authors;
+    private String name;
+    private String numberOfPages;
+    private String publisher;
+    private String country;
+    private String authors;
 
     public Book(String name, String numberOfPages, String publisher,  String country, String authors)
     {

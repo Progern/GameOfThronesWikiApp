@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GameOfThronesWikiApp</string>
+    <string name="app_name">GOT Wiki</string>
     <string name="title_activity_main_drawer">MainDrawerActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

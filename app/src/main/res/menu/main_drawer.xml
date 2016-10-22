@@ -2,8 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_characters"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/how_to_search_characters"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_houses"
+        android:orderInCategory="101"
+        android:title="@string/how_to_search_houses"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_books"
+        android:orderInCategory="102"
+        android:title="@string/how_to_search_books"
+        app:showAsAction="never" />
+
+
 </menu>

@@ -1,19 +1,16 @@
 package progernapplications.gameofthroneswikiapp;
 
-import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MainDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,7 +44,7 @@ public class MainDrawerActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            // Do nothing
         }
     }
 
@@ -60,16 +57,17 @@ public class MainDrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_books:
+                showBooksHelpDialog();
+                break;
+            case R.id.action_characters:
+                showCharactersHelpDialog();
+                break;
+            case R.id.action_houses:
+                showHousesHelpDialog();
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -81,15 +79,13 @@ public class MainDrawerActivity extends AppCompatActivity
         switch(item.getItemId())
         {
             case R.id.nav_houses:
-               // TODO Houses fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new HousesFragment()).commit();
                 break;
             case R.id.nav_books:
                 getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new BooksFragment()).commit();
                 break;
             case R.id.nav_characters:
                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new CharactersFragment()).commit();
-
-
                 break;
             case R.id.nav_info:
                 // TODO Info toast or smthing
@@ -100,4 +96,57 @@ public class MainDrawerActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void showCharactersHelpDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainDrawerActivity.this);
+        builder.setTitle("Characters query")
+                .setMessage(R.string.help_dialog_characters)
+                .setIcon(R.drawable.crusader_icon_for_dialog)
+                .setCancelable(false)
+                .setPositiveButton("Got it!",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void showHousesHelpDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainDrawerActivity.this);
+        builder.setTitle("House query")
+                .setMessage(R.string.help_dialog_houses)
+                .setIcon(R.drawable.castle_icon_for_dialog)
+                .setCancelable(false)
+                .setPositiveButton("Got it!",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void showBooksHelpDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainDrawerActivity.this);
+        builder.setTitle("Book query")
+                .setMessage(R.string.help_dialog_books)
+                .setIcon(R.drawable.books_icon_for_dialog)
+                .setCancelable(false)
+                .setPositiveButton("Got it!",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 }

@@ -1,153 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+    android:id="@+id/houses_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="250dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="80dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
         android:background="@color/lightPrimary">
 
         <TextView
-            android:id="@+id/name_rv"
+            android:id="@+id/house_name_rv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Name"
-            android:textColor="@color/primaryText"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/title_rv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name_rv"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="title"
+            android:text="NAME_HERE"
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/house_words_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="WORDS_HERE"
+            android:textColor="@color/primaryText"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/container_stroke">
 
         <TextView
-            android:id="@+id/static_culture_text"
+            android:id="@+id/region_static_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="@string/culture"
+            android:text="@string/region"
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/culture_rv"
+            android:id="@+id/house_region_rv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/static_culture_text"
+            android:layout_alignBottom="@+id/region_static_text"
             android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/static_culture_text"
+            android:layout_toEndOf="@+id/region_static_text"
             android:fontFamily="sans-serif-thin"
-            android:text="CULTURE"
+            android:text="REGION_HERE"
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/static_born_text"
+            android:id="@+id/seats_static_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/static_culture_text"
+            android:layout_below="@+id/region_static_text"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="@string/born"
+            android:text="Seats:"
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/born_rv"
+            android:id="@+id/house_seats_rv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/static_born_text"
+            android:layout_alignBottom="@+id/seats_static_text"
             android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/static_born_text"
+            android:layout_toEndOf="@+id/seats_static_text"
             android:fontFamily="sans-serif-thin"
-            android:text="BORN"
+            android:text="SEATS_HERE"
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/static_died_text"
+            android:id="@+id/weapons_static_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/static_born_text"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_alignStart="@+id/seats_static_text"
+            android:layout_below="@+id/seats_static_text"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="@string/died"
+            android:text="Weapons: "
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/died_rv"
+            android:id="@+id/house_weapons_rv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/static_died_text"
+            android:layout_alignTop="@+id/weapons_static_text"
             android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/static_died_text"
+            android:layout_toEndOf="@+id/weapons_static_text"
             android:fontFamily="sans-serif-thin"
-            android:text="DIED"
-            android:textColor="@color/primaryText"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/container_stroke">
-
-        <TextView
-            android:id="@+id/static_tv_series_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/tv_series"
-            android:textColor="@color/primaryText"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tv_series_rv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/static_tv_series_text"
-            android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/static_tv_series_text"
-            android:fontFamily="sans-serif-thin"
-            android:text="TV_SERIES_LIST"
+            android:text="WEAPONS_HERE"
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
     </RelativeLayout>

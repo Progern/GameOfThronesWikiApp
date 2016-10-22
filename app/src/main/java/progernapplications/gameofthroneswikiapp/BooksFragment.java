@@ -44,6 +44,14 @@ public class BooksFragment extends Fragment implements View.OnClickListener {
 
     private StringBuffer authorsBuf;
 
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,7 +142,7 @@ public class BooksFragment extends Fragment implements View.OnClickListener {
     public void setupUI(View view) {
 
         // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText) || !(view instanceof Button) || !(view instanceof RecyclerView)) {
+        if (!(view instanceof EditText) || !(view instanceof Button) || (view instanceof RecyclerView)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -148,11 +156,24 @@ public class BooksFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 0);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("data", booksList);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            booksList = (ArrayList<Book>) savedInstanceState.getSerializable("data");
+            mClient = new AsyncHttpClient();
+            mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+            mBooksAdapter = new BooksRecViewAdapter(getActivity().getApplicationContext(), booksList);
+            mRecyclerView.setAdapter(mBooksAdapter);
+            mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        }
     }
 }

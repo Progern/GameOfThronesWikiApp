@@ -19,4 +19,12 @@
     <string name="tv_series">TV Series:</string>
     <string name="empty_search_query">Search query is empty</string>
     <string name="error_occured">Error occured. Try again.</string>
+    <string name="seats">Seats: </string>
+    <string name="region">Region: </string>
+    <string name="help_dialog_houses">Query format:\nHouse HOUSE_NAME of REGION_NAME \n \nFor example: House Stark of Winterfell</string>
+    <string name="help_dialog_characters">Requests examples: \nJon Snow, \nCersei Lannister, \nRobb Stark</string>
+    <string name="help_dialog_books">You must type full book name: \nFor example: A Game of Thrones, \nA Feast for Crows</string>
+    <string name="how_to_search_characters">How to search characters</string>
+    <string name="how_to_search_houses">How to search houses</string>
+    <string name="how_to_search_books">How to search books</string>
 </resources>

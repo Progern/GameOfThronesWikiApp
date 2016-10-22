@@ -5,9 +5,38 @@
     tools:context="progernapplications.gameofthroneswikiapp.HousesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/houses_search_query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/rectangle_search"
+            android:drawableLeft="@drawable/search_little"
+            android:drawablePadding="5dp"
+            android:hint="Type the name of house here" />
+
+        <ImageView
+            android:id="@+id/baratheon_sign"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/houses_search_query"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/baratheon" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/houses_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/baratheon_sign"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 </FrameLayout>

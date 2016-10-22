@@ -38,7 +38,6 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
     StringBuffer tvseriesBuffer;
     String title;
     String deathDate;
-    String father, mother, spouse;
     private ArrayList<Character> charactersList;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -47,7 +46,13 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
     private Snackbar mSnackbar;
     private ImageView targSign;
 
-
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
 
     @Nullable
     @Override
@@ -106,14 +111,9 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
                             // Check if character has died. If not - then fill the Text field with appropriate text
                             deathDate = checkInfoPresence(character.getString("died"));
 
-                            // Check if we have any information about character's mother, father and spouse in our responce
-                            // If we have none, fill the Text fields with appropriate texts
-                            father = checkInfoPresence(character.getString("father"));
-                            mother = checkInfoPresence(character.getString("mother"));
-                            spouse = checkInfoPresence(character.getString("spouse"));
 
                             charactersList.add(new Character(character.getString("name"), title, character.getString("culture")
-                                    , character.getString("born"), deathDate, father, mother, spouse, tvseriesBuffer.toString()));
+                                    , character.getString("born"), deathDate, tvseriesBuffer.toString()));
                             mAdapter.notifyDataSetChanged();
                         } else Toast.makeText(getActivity(), "Already added.", Toast.LENGTH_SHORT).show();
                     } catch (JSONException ex) {
@@ -162,12 +162,25 @@ public class CharactersFragment extends Fragment implements View.OnClickListener
 
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 0);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("data", charactersList);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            charactersList = (ArrayList<Character>) savedInstanceState.getSerializable("data");
+            mClient = new AsyncHttpClient();
+
+            mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+            mAdapter = new CharactersRecViewAdapter(getActivity().getApplicationContext(), charactersList);
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        }
+    }
 }

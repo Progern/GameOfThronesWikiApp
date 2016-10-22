@@ -44,11 +44,8 @@ public class CharactersRecViewAdapter extends RecyclerView.Adapter<CharactersRec
             holder.title.setText(currentCharacter.getTitle());
             holder.culture.setText(currentCharacter.getCulture());
             holder.born.setText(currentCharacter.getBornDate());
-            holder.died.setText(currentCharacter.getDeathName());
+        holder.died.setText(currentCharacter.getDeathDate());
 
-            holder.father.setText(currentCharacter.getFather());
-            holder.mother.setText(currentCharacter.getMother());
-            holder.spouse.setText(currentCharacter.getSpouse());
 
             //holder.povBooks.setText(currentCharacter.getListOfBooks());
             holder.tvSeries.setText(currentCharacter.getTvSeries());
@@ -102,12 +99,6 @@ public class CharactersRecViewAdapter extends RecyclerView.Adapter<CharactersRec
             culture = (TextView)itemView.findViewById(R.id.culture_rv);
             born = (TextView)itemView.findViewById(R.id.born_rv);
             died = (TextView)itemView.findViewById(R.id.died_rv);
-
-            father = (TextView)itemView.findViewById(R.id.father_rv);
-            mother = (TextView)itemView.findViewById(R.id.mother_rv);
-            spouse = (TextView)itemView.findViewById(R.id.spouce_rv);
-
-
             tvSeries = (TextView)itemView.findViewById(R.id.tv_series_rv);
 
             container = (LinearLayout)itemView.findViewById(R.id.container);
